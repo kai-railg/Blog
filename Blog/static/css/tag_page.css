@@ -1,0 +1,7 @@
+#tag_filter {
+    height: 1px;
+}
+#tag_filter span {
+    font-size: 12px;
+    margin: -10px 0 0 5px;
+}
