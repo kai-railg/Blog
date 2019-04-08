@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 from django.contrib.auth.models import AbstractUser
 
 
@@ -10,7 +9,6 @@ class BaseModel(models.Model):
     is_delete = models.BooleanField(default=0, verbose_name='是否删除')
 
     class Meta:
-        # 声明抽象类
         abstract = True
 
 
@@ -19,12 +17,16 @@ class User(AbstractUser):
         verbose_name = '用户'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.username
+
 
 class Article(BaseModel):
     title = models.CharField(max_length=64, verbose_name='标题')
     desc = models.CharField(max_length=128, null=True, blank=True, verbose_name='简介')
     image = models.ImageField(upload_to='image', verbose_name='简介图片', default='', null=True)
 
+    position = models.CharField(max_length=10, default=0)
     detail = models.OneToOneField(to='ArticleDetail', default='', null=False, verbose_name='文章详情')
     tag = models.ForeignKey(to='Tags', default='', verbose_name='所属标签')
     tag_filter = models.ForeignKey(to='Filter', default='', verbose_name='所属小标签', null=True, blank=True)
@@ -32,6 +34,9 @@ class Article(BaseModel):
     class Meta:
         verbose_name = '文章'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.title
 
 
 class ArticleDetail(BaseModel):
@@ -44,7 +49,7 @@ class ArticleDetail(BaseModel):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.article.title
+        return str(self.id)
 
 
 class Tags(models.Model):
@@ -66,7 +71,6 @@ class Tags(models.Model):
 
 class Filter(models.Model):
     name = models.CharField(max_length=32, verbose_name='分类名字')
-    tag = models.ForeignKey(to='Tags', default='', verbose_name='所属标签')
 
     def __str__(self):
         return self.name

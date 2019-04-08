@@ -6,7 +6,6 @@
     <script src="/static/js/bootstrap.js"></script>
     <link rel="stylesheet" href="/static/layui-v2.4.5/layui/css/layui.css">
     <link rel="stylesheet" href="/static/css/bootstrap.css">
-    <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/index.css">
 
     {% block srcipt %}{% endblock %}
@@ -14,62 +13,76 @@
 <body>
 <div id="global">
     <div id="content">
-        <div id="title">
-            <h2>站名</h2>
+        <div id="">
+            <h2>Kai</h2>
+
         </div>
+        <div id="sign">
+            <p >签名</p>
+        </div>
+
+
         <hr>
         <div style="">
             <ul class="nav nav-pills " id='head'>
-                <li role="presentation"><a href="/">首页</a></li>
+                <li role="presentation"><a href="{% url 'user:index' %}">首页</a></li>
                 <li role="presentation"><a href="{% url 'user:tag' 1 %}">Linux</a></li>
                 <li role="presentation"><a href="{% url 'user:tag' 2 %}">Python</a></li>
                 <li role="presentation"><a href="{% url 'user:tag' 3 %}">数据库</a></li>
                 <li role="presentation"><a href="{% url 'user:tag' 4 %}">数据结构</a></li>
                 {% if request.user.is_authenticated %}
                     <li role="presentation"><a href="{% url 'user:add_article' %}">写文章</a></li>
+                    {% else %}
+                    <li role="presentation"><a href="{% url 'resume' %}">简历</a></li>
                 {% endif %}
             </ul>
-            <form class="navbar-form" style="margin-left: 700px;margin-top: -30px ">
+            <form class="navbar-form" style="" id="search_css" method="get" action="/search">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Search" name="q">
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
         <hr>
-        {#        小分类，比如安装、配置、xx相关等等，后台创建#}
-
         {% block content %}
             {% for article in article_list.object_list %}
-                <div style="width: 750px ">
+                <div style=" " id="article_width">
                     <hr>
-                    <div style="height: 80px; position: relative">
-                        <h4><a href="{% url 'user:article' article.id %}" style="margin-left: 20px">
+                    <div id="article_css">
+                        <h4><a href="{% url 'user:article' article.id %}" id="article_title">
                             {{ article.title }}
                         </a></h4>
-                        <p style="font-size: 13px;margin: 10px 0 0 50px;color: #808080">
+                        <p id="desc_css">
                             {{ article.desc }}
                         </p>
-                        <div class="layui-btn-group " id="layui_style">
-                            <a class="layui-btn layui-btn-sm"
-                               href="{% url 'user:edit_article' article.id %}">
-                                <i class="layui-icon">&#xe642;</i>
-                            </a>
-                            <a class="layui-btn layui-btn-sm"
-                               href="{% url 'user:del_article' article.id %}">
-                                <i class="layui-icon">&#xe640;</i>
-                            </a>
-                        </div>
-                        <div style="width: 80px; height: 80px;background-color: #1b6d85; position: absolute;
-                    right: 0;top: 0">
+                        {% if request.user.is_authenticated %}
+                            <div class="layui-btn-group " id="layui_style">
+                                <a class="layui-btn layui-btn-sm"
+                                   href="{% url 'user:edit_article' article.id %}">
+                                    <i class="layui-icon">&#xe642;</i>
+                                </a>
+                                <a class="layui-btn layui-btn-sm"
+                                   href="{% url 'user:del_article' article.id %}">
+                                    <i class="layui-icon">&#xe640;</i>
+                                </a>
+                            </div>
+                        {% endif %}
+                        <div style="" id="picture_css">
                             <img src="http://47.94.144.96:80/{{ article.image }}" alt="" width="80px" height="80px">
-
                         </div>
                     </div>
                     <hr>
                 </div>
-
             {% endfor %}
+            <ul class="" id="right_tag">
+                <li>
+                    {% for filter in tag_filter %}
+                        <a href="?filter={{ filter.id }}">
+                            <span class="layui-badge layui-bg-orange">{{ filter.name }}</span>
+                        </a>
+                    {% endfor %}
+                </li>
+            </ul>
             <div class="col-md-offset-3" id="pageturn">
                 <ul class="">
                     {% if article_list.has_previous %}
@@ -94,16 +107,17 @@
                     {% endif %}
                 </ul>
             </div>
+
         {% endblock %}
         <hr>
         <div id="end" class="col-md-offset-2">
             <a href="">Copyright©2019</a><span>|</span>
             <a href="">Kai</a><span>|</span>
-            <a href="">SiteMap</a><span>|</span>
-            <a href="">Baidu SiteMap</a><span>|</span>
-            <a href="">Hosting On</a><span>|</span>
-            <a href="">Linode</a><span>|</span>
-            <a href="">百度统计</a>
+            <a href="https://www.baidu.com/">百度</a><span>|</span>
+            <a href="https://github.com/Stack-wangkai">Git</a><span>|</span>
+            <a href="https://docs.djangoproject.com/zh-hans/2.1/">Django</a><span>|</span>
+            <a href="http://docscn.studygolang.com/doc/">Go</a><span>|</span>
+            <a href="https://tongji.baidu.com/web/welcome/login">百度统计</a>
         </div>
     </div>
 </div>

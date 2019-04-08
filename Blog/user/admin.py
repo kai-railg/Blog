@@ -1,35 +1,31 @@
-import xadmin
 # Register your models here.
-from user.models import ArticleDetail, Article, Tags
+from user.models import ArticleDetail, Article, Tags, Filter
+from django.contrib import admin
+
+class ArticleDetailAdmin(admin.ModelAdmin):
+    list_display = ['content', 'image', 'create_time', 'update_time']
+    search_fields = ['content', 'image']
+    list_filter = ['content', 'image']
 
 
-# from django.contrib import admin
-
-class ArticleDetailAdmin(object):
-    list_display = ['content', 'tag', 'image', 'create_time', 'update_time']
-    search_fields = ['content', 'tag', 'image']
-    list_filter = ['content', 'tag', 'image']
-    pass
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ['title', 'desc', 'image', 'detail', 'tag', 'tag_filter',
+                    'position', 'create_time', 'update_time']
 
 
-class ArticleAdmin(object):
-    list_display = ['title', 'desc', 'image', 'detail', 'create_time', 'update_time']
-    pass
-
-
-class TagsAdmin(object):
+class TagsAdmin(admin.ModelAdmin):
     list_display = ['name']
     search_fields = ['name']
     list_filter = ['name']
-    pass
 
 
-#
+class FilterAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    search_fields = ['name']
+    list_filter = ['name']
 
-xadmin.site.register(ArticleDetail, ArticleDetailAdmin)
-xadmin.site.register(Article, ArticleAdmin)
-xadmin.site.register(Tags, TagsAdmin)
 
-# admin.site.register(ArticleDetail)
-# admin.site.register(Article)
-# admin.site.register(Tags)
+admin.site.register(ArticleDetail, ArticleDetailAdmin)
+admin.site.register(Article, ArticleAdmin)
+admin.site.register(Tags, TagsAdmin)
+admin.site.register(Filter, FilterAdmin)

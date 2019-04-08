@@ -14,7 +14,6 @@
                        value="{{ article.title }}">
             </div>
         </div>
-
         <div class="form-group">
             <label for="desc" class="control-label">简介</label>
             <div>
@@ -34,7 +33,6 @@
                 </textarea>
             </div>
         </div>
-
         <div class="form-group">
             <label for="tag" class="control-label">分组</label>
             <div>
@@ -46,9 +44,20 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="tag" class="control-label">标签</label>
+            <div id="radio_css">
+                {% for tag in tag_filter %}
+                    {{ tag.name }}<input value="{{ tag.id }}" type="radio" name="filter">
+                {% endfor %}
+                <label for="position" class="control-label">加*</label>
+                <input type="radio" name="position" value="1" >
+            </div>
+
+        </div>
+        <div class="form-group">
             <input type="submit" class="btn btn-primary pull-right" value="提交">
         </div>
-        <input type="hidden" name="id" value="{{ article.id }}" >
+        <input type="hidden" name="id" value="{{ article.id }}">
 
     </form>
 
@@ -60,7 +69,6 @@
         KindEditor.ready(function (K) {
             window.editor = K.create('#content1', {
                 width: '100%',
-                {#height: '100%',#}
                 height: '400px',
                 resizeType: 0,
                 uploadJson: '/add_image/',

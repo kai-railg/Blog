@@ -1,17 +1,34 @@
+body, h1,h2,h3, h6, p {
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
 #global {
     width: 100%;
     margin-bottom: 0;
     border-top: 1px;
 }
-/*#tag_filter {*/
-    /*height: 20px;*/
-    /*width: 400px;*/
-    /*!*margin-bottom: 40px;*!*/
-/*}*/
+
+#desc_css {
+    font-size: 13px;
+    margin: 10px 0 0 50px;
+    color: #808080;
+    width: 510px;
+
+}
+
+#sign {
+    margin: 10px 0 0 15px;
+    font-size: 10px;
+}
+
 #tag_filter span {
-    /*text-align: center;*/
-    /*font-size: 11px;*/
-    /*color: #333333;*/
     margin: -10px 0 0 5px;
 }
 
@@ -20,7 +37,6 @@
 }
 
 
-/*翻页*/
 #page {
     overflow: hidden;
     clear: both;
@@ -29,9 +45,49 @@
 
 
 #content {
+    position: relative;
     margin-top: 100px;
     margin-left: 130px;
     width: 1000px;
+}
+
+#right_tag {
+    width: 200px;
+    position: absolute;
+!important;
+    right: 10px;
+    top: 173px;
+}
+
+#search_css {
+    margin-left: 700px;
+    margin-top: -30px
+}
+
+#article_css {
+    height: 80px;
+    position: relative
+}
+
+#article_title {
+    margin-left: 20px
+}
+
+#article_width {
+    width: 750px
+}
+
+#picture_css {
+    width: 80px;
+    height: 80px;
+    background-color: #1b6d85;
+    position: absolute;
+    right: 0;
+    top: 0
+}
+
+#right_tag li {
+    height: 50px;
 }
 
 #head {
@@ -69,6 +125,3 @@
     right: 100px;
     bottom: -5px;
 }
-#layui_style i {
-}
-

@@ -1,0 +1,5 @@
+
+{{ object.title }}
+{{ object.desc }}
+{{ object.tag_filter }}
+{{ object.detail.content }}

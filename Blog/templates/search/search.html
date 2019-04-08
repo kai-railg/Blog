@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}
+    查询结果
+{% endblock %}
+{% block srcipt %}
+{#    <link rel="stylesheet" href="/static/css/tage_index.css">#}
+{% endblock %}
+
+
+{% block content %}
+    {{ query }}
+    {{ page }}
+    {% for item in page %}
+        <div style=" " id="article_width">
+            <hr>
+            <div id="article_css">
+                <h4><a href="{% url 'user:article' item.object.id %}" id="article_title">
+                    {{ item.title }}
+                </a></h4>
+                <p id="desc_css">
+                    {{ item.object.desc }}
+                </p>
+                {% if request.user.is_authenticated %}
+                    <div class="layui-btn-group " id="layui_style">
+                        <a class="layui-btn layui-btn-sm"
+                           href="{% url 'user:edit_article' item.object.id %}">
+                            <i class="layui-icon">&#xe642;</i>
+                        </a>
+                        <a class="layui-btn layui-btn-sm"
+                           href="{% url 'user:del_article' item.object.id %}">
+                            <i class="layui-icon">&#xe640;</i>
+                        </a>
+                    </div>
+                {% endif %}
+                <div style="" id="picture_css">
+                    <img src="http://47.94.144.96:80/{{ item.object.image }}" alt="" width="80px" height="80px">
+                </div>
+            </div>
+            <hr>
+        </div>
+    {% endfor %}
+    <div class="col-md-offset-3" id="pageturn">
+        <ul class="">
+            {% if page.has_previous %}
+                <li><a href="/search?q={{ query }}&page={{ page.previous_page_number }}"
+                                class="prev">上一页</a></li>
+            {% endif %}
+            {% for pindex in paginator.page_range %}
+                {% if pindex %}
+                    {% ifequal page page.number %}
+                        <li class="active"><a >{{ pindex }}</a></li>
+                    {% else %}
+                        <li><a href="/search?q={{ query }}&page={{ pindex }}" id="page">{{ pindex }}</a></li>
+                    {% endifequal %}
+                {% else %}
+                    <li class="none"><a href="">...</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page.has_next %}
+                <li class="">
+                    <a href="/search?q={{ query }}&page={{ page.next_page_number }}" class="next">下一页</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

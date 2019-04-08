@@ -1,0 +1,46 @@
+body, h1, h2, h3, h6, p {
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+#page {
+    width: 1200px;
+    margin: 60px 0 0 70px;
+
+}
+
+.block {
+    width: 1200px;
+}
+
+.block:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.block .title {
+    width: 150px;
+    height: 200px;
+    float: left;
+}
+
+.block .desc {
+    height: 200px;
+    float: left;
+}
+
+.produce {
+    margin: 50px 0 0 -30px;
+    font-size: 17px;
+}
+
+.inner_desc {
+    margin-left: 80px;
+}

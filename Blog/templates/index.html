@@ -7,31 +7,5 @@
 {% endblock %}
 
 {% block content %}
-{#    {% for article in article_list.object_list %}#}
-{#        <div style="width: 750px ">#}
-{#            <hr>#}
-{#            <div style="height: 80px; position: relative">#}
-{#                <h4><a href="" style="margin-left: 20px">#}
-{#                    {{ article.title }}#}
-{#                </a></h4>#}
-{#                <p style="font-size: 13px;margin: 10px 0 0 50px;color: #808080">#}
-{#                    {{ article.desc }}#}
-{#                <div class="layui-btn-group " id="layui_style">#}
-{#                    <a class="layui-btn layui-btn-sm" href="{% url 'user:edit_article' article.id %}">#}
-{#                        <i class="layui-icon">&#xe642;</i>#}
-{#                    </a>#}
-{#                    <a class="layui-btn layui-btn-sm" href="{% url 'user:del_article' article.id %}">#}
-{#                        <i class="layui-icon">&#xe640;</i>#}
-{#                    </a>#}
-{#                </div>#}
-{#                </p>#}
-{#                <div style="width: 80px; height: 80px;background-color: #1b6d85; position: absolute;#}
-{#                    right: 0;top: 0">#}
-{#                    <img src="http://47.94.144.96:80/{{ article.image }}" alt="" width="80px" height="80px" >#}
-{#                </div>#}
-{#            </div>#}
-{#            <hr>#}
-{#        </div>#}
-{#    {% endfor %}#}
     {{ block.super }}
 {% endblock %}
