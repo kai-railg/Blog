@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}
+    添加文章
+{% endblock %}
+{% block srcipt %}
+  <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script>
+  <script>tinymce.init({ selector:'textarea' });</script>
+{% endblock %}
+
+{% block content %}
+    <form action="{% url 'user:add_article' %}" method="post" style="padding: 20px">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="title" class="control-label">标题</label>
+            <div>
+                <input id="title" name="title" type="text" class="form-control"
+                       value="{{ article.title }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="desc" class="control-label">简介</label>
+            <div>
+                <input id="desc" name="desc" type="text" class="form-control"
+                       value="{{ article.desc }}">
+            </div>
+        </div>
+        <div class="form-group" id="change_area">
+            <label for=content class="control-label">正文</label>
+            <div>
+                <textarea name="content" id="content" cols="134" rows="13">
+                        {% autoescape off %}
+                            {{ article.content }}
+                        {% endautoescape %}
+                </textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tag" class="control-label">标签</label>
+            <div>
+                <select name="tag" id="tag" class="form-control">
+                    {% for tag in tags %}
+                        <option value="{{ tag.id }}">{{ tag.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tag" class="control-label">分类</label>
+            <div id="radio_css">
+                {% for category in categories %}
+                    {{ category.name }}<input value="{{ category.id }}" type="radio" name="category">
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary pull-right" value="提交">
+        </div>
+        <input type="hidden" name="id" value="{{ article.id }}">
+
+    </form>
+
+{% endblock %}
+
+{% block js %}
+{#    <script src="/static/kindeditor/kindeditor-all.js"></script>#}
+{#    <script>#}
+{#        KindEditor.ready(function (K) {#}
+{#            window.editor = K.create('#content1', {#}
+{#                width: '100%',#}
+{#                height: '400px',#}
+{#                resizeType: 0,#}
+{#                uploadJson: '/add_image/',#}
+{#                extraFileUploadParams: {#}
+{#                    csrfmiddlewaretoken: '{{ csrf_token }}',#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{% endblock %}
