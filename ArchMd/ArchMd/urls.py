@@ -38,7 +38,6 @@ urlpatterns = [
     url(r'^__debug__/', include(debug_toolbar.urls)),
     url(r'^silk/', include('silk.urls', namespace='silk')),
 
-
     url(r'^rss|feed/', LatestArticleFeed(), name='rss'),
     url(r'sitemap\.xml', sitemap_view.sitemap, {'sitemaps': {'posts': ArticleSitemap}}),
 
@@ -47,7 +46,5 @@ urlpatterns = [
 
     url(r'^resume/$', TemplateView.as_view(template_name='resume.html'), name='resume'),
     url(r'^', include('user.urls', namespace='user')),
-]
+] + static(settings.MEDIA_ROOT, document_root=settings.MEDIA_ROOT)
 
-# 配置图片访问
-static(settings.MEDIA_ROOT, document_root=settings.MEDIA_ROOT)

@@ -17,18 +17,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'haystack',
     'user',
-    'dal', 'dal_select2',  # django-autocomplete-light
+    'dal', 'dal_select2',
     'ckeditor', 'ckeditor_uploader',
-    'debug_toolbar','pympler',
+    'debug_toolbar', 'pympler',
     'silk',
-
 
 ]
 
-# DEBUG_TOOLBAR_PANELS = [
-    # 'djdt_flamegraph.FlamegraphPanel',
-    # 'pympler.panels.MemoryPanel',
-# ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -38,7 +33,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'user.auth.CommonMiddleware',    'user.auth.UserIdMiddle',
+    'user.auth.CommonMiddleware', 'user.auth.UserIdMiddle',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'silk.middleware.SilkyMiddleware'
 ]
@@ -47,15 +42,17 @@ INTERNAL_IPS = ['127.0.0.1']
 ROOT_URLCONF = 'ArchMd.urls'
 WSGI_APPLICATION = 'ArchMd.wsgi.application'
 
-# 邮箱配置
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = False  # 安全链接
-EMAIL_HOST = 'smtp.qq.com'  # qq就代表qq邮箱
-EMAIL_PORT = 25  # 端口号默认25
-EMAIL_HOST_USER = '1010547513@qq.com'  # 发件人的邮箱
-EMAIL_HOST_PASSWORD = 'ftkttstribqbbeic'  # 授权码
-EMAIL_FROM = 'ArchMd<1010547513@qq.com>'  # 发送邮件的邮箱
+ADMINS = MANAGERS = (
+    ('wangkai', ''),
+)
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = False
+EMAIL_HOST = ''
+EMAIL_PORT = 25
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_FROM = ''
 
 TEMPLATES = [
     {
@@ -76,28 +73,27 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'kai',
-        'HOST': '47.94.144.96',
-        'USER': 'root',
-        'PASSWORD': 'root',
+        'NAME': 'blog',
+        'HOST': '',
+        'USER': '',
+        'PASSWORD': '',
         'PORT': 3306,
-        'CONN_MAX_AGE': 300,  # 默认为0，表示没有复用的连接，多线程下禁掉此项
+        'CONN_MAX_AGE': 300,
     }
 }
 
-# 缓存
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://47.94.144.96:6379/0',
+        'LOCATION': 'redis://ip:6379/0',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
     }
 }
 
-# session 存储引擎
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
 SESSION_CACHE_ALIAS = 'default'
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -115,9 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'zh-hans'  # 中国编码
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'Asia/Shanghai'  # 上海时间
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -134,7 +130,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CKEDITOR_UPLOAD_PATH = 'article_images'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'collect_static')
 
 # 全文检索配置
 HAYSTACK_CONNECTIONS = {
@@ -161,5 +157,3 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': 'codesnippet',
     },
 }
-
-

@@ -11,10 +11,7 @@ from django.template import loader
 # django.setup()
 
 
-
-app = Celery('test', broker='redis://47.94.144.96:6379/1', backend='redis://47.94.144.96:6379/2')
-
-
+app = Celery('test', broker='redis://:6379/1', backend='redis://:6379/2')
 
 @app.task
 def generate_static_index_html():

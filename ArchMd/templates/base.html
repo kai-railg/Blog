@@ -65,7 +65,8 @@
                             </div>
                         {% endif %}
                         <div style="" id="picture_css">
-                            <img src="http://47.94.144.96:80/{{ article.image }}" alt="" width="80px" height="80px">
+{#                            http://47.94.144.96:80/#}
+                            <img src="{{ article.image }}" alt="" width="80px" height="80px">
                         </div>
                     </div>
                     <hr>
@@ -74,7 +75,7 @@
             <ul class="" id="right_tag">
                 <li>
                     {% for tag in tags %}
-                        <a href="&&tag={{ tag.id }}">
+                        <a href="?tag={{ tag.id }}">
                             <span class="layui-badge layui-bg-orange">{{ tag.name }}</span>
                         </a>
                     {% endfor %}

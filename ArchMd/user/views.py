@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.db import transaction
 from django.core.cache import cache
 
@@ -13,29 +13,27 @@ from silk.profiling.profiler import silk_profile
 
 class IndexView(ListView):
     template_name = 'index.html'
-    paginate_by = 8
+    paginate_by = 1
     queryset = Article.objects.all(). \
         select_related('category'). \
         select_related('tag'). \
         defer('content')
     context_object_name = 'article_list'
+    ordering = '-created_time'
 
     @silk_profile(name='IndexView.get_queryset')
     def get_queryset(self):
-        query = super(IndexView, self).get_queryset(). \
-            order_by('-created_time')
-        # 对分类进行过滤
-        category = self.kwargs.get('category')
+        queryset = super(IndexView, self).get_queryset()
+        category = self.request.GET.get('category')
         if category:
-            query.filter(category_id=int(category))
-        # 对标签进行过滤
-        tag = self.kwargs.get('tag')
+            queryset = queryset.filter(category_id=int(category))
+        tag = self.request.GET.get('tag')
         if tag:
-            query.filter(tag_id=int(tag))
-        return query
+            queryset = queryset.filter(category_id=int(tag))
+        return queryset
 
     def get_context_data(self, **kwargs):
-        content = (cache.get('index_page_date'))
+        content = cache.get('index_page_date')
         if not content:
             content = super(IndexView, self).get_context_data()
             tags = Tag.objects.all()[:10]
@@ -56,28 +54,25 @@ class DetailArticle(DetailView):
     pk_url_kwarg = 'article_id'
     conn = get_redis_connection()
 
-    def get_queryset(self):
-        query = super(DetailArticle, self).get_queryset()
-        # obj = query.first()
-        # pv = obj.pv + 1
-        return query
-
-    def get_object(self, queryset=None):
-        obj = super(DetailArticle, self).get_object()
-        pv = int(self.conn.hget('article', obj.id))
-        obj.pv = pv
-        return obj
-
     def get(self, request, *args, **kwargs):
+        id = str(self.kwargs.get(self.pk_url_kwarg))
+        detail = cache.get(f'detail{id}')
+        if detail:
+            self.object = detail
+        else:
+            self.object = self.get_object()
+            cache.set(f'detail{id}', self.object, 3600)
+        try:
+            pv = int(self.conn.hget('article', id))
+        except TypeError:
+            pv = 1
+        self.object.pv = pv
         token = request.COOKIES.get('article')
-        obj = self.get_object()
-        pv = obj.pv
-        id = str(obj.id)
         if not self.conn.get(token + id):
             self.conn.hset('article', id, pv + 1)
             self.conn.setex(token + id, 3600 * 24, id)
-
-        return super(DetailArticle, self).get(self, request, *args, **kwargs)
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
 
 class WriteView(APIView):
@@ -125,3 +120,14 @@ class DelArticleView(APIView):
     def get(self, request, article_id):
         Article.objects.filter(id=article_id).delete()
         return redirect('/')
+
+
+# handler404 = Handler404.as_view()
+# handler500 = Handler50x.as_view()
+
+class Handler404(TemplateView):
+    template_name = '404.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context, status=404)

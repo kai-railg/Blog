@@ -7,3 +7,5 @@ urlpatterns = [
     url(r'^delete/(?P<article_id>\d+)', views.DelArticleView.as_view(), name='del_article'),
 ]
 
+handler404 = views.Handler404.as_view()
+handler500 = views.Handler404.as_view()

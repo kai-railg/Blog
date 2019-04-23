@@ -3,8 +3,8 @@
     添加文章
 {% endblock %}
 {% block srcipt %}
-  <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script>
-  <script>tinymce.init({ selector:'textarea' });</script>
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script>
+    <script>tinymce.init({selector: 'textarea'});</script>
 {% endblock %}
 
 {% block content %}
@@ -49,7 +49,9 @@
             <label for="tag" class="control-label">分类</label>
             <div id="radio_css">
                 {% for category in categories %}
-                    {{ category.name }}<input value="{{ category.id }}" type="radio" name="category">
+                    {{ category.get_name_display }}
+                    <input value="{{ category.id }}" type="radio" name="category"
+                           {% ifequal category.id article.category.id %}checked{% endifequal %}>
                 {% endfor %}
             </div>
 
@@ -64,18 +66,18 @@
 {% endblock %}
 
 {% block js %}
-{#    <script src="/static/kindeditor/kindeditor-all.js"></script>#}
-{#    <script>#}
-{#        KindEditor.ready(function (K) {#}
-{#            window.editor = K.create('#content1', {#}
-{#                width: '100%',#}
-{#                height: '400px',#}
-{#                resizeType: 0,#}
-{#                uploadJson: '/add_image/',#}
-{#                extraFileUploadParams: {#}
-{#                    csrfmiddlewaretoken: '{{ csrf_token }}',#}
-{#                }#}
-{#            });#}
-{#        });#}
-{#    </script>#}
+    {#    <script src="/static/kindeditor/kindeditor-all.js"></script>#}
+    {#    <script>#}
+    {#        KindEditor.ready(function (K) {#}
+    {#            window.editor = K.create('#content1', {#}
+    {#                width: '100%',#}
+    {#                height: '400px',#}
+    {#                resizeType: 0,#}
+    {#                uploadJson: '/add_image/',#}
+    {#                extraFileUploadParams: {#}
+    {#                    csrfmiddlewaretoken: '{{ csrf_token }}',#}
+    {#                }#}
+    {#            });#}
+    {#        });#}
+    {#    </script>#}
 {% endblock %}

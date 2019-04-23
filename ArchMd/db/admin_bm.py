@@ -1,8 +1,14 @@
 __data__ = '2019-04-19 13:43'
 __author__ = 'Kai'
 from django.contrib import admin
-from utils.celery_task import generate_static_index_html
 from django.core.cache import cache
+
+from utils.celery_task import generate_static_index_html
+
+
+
+
+
 
 
 class BaseOwnerAdmin(admin.ModelAdmin):
@@ -12,7 +18,7 @@ class BaseOwnerAdmin(admin.ModelAdmin):
         obj.user = request.user
         super(BaseOwnerAdmin, self).save_model(request, obj, form, change)
         # 重新生成静态页面
-        res = generate_static_index_html.delay()
+        generate_static_index_html.delay()
         cache.delete('index_page_date')
 
     def delete_model(self, request, obj):
