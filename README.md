@@ -22,3 +22,5 @@ django 框架中又实现了注册功能的拆分和独立部署。
 
 项目文档在我的 Notio 笔记中，<a href="https://www.notion.so/ArchMD-81a72022dab04716a2b5f55705dfaa9b">查看</a>。
 
+此项目本人会一直更新并维护下去，欢迎提交issue，感谢您的支持。
+
