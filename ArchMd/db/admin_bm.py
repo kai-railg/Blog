@@ -6,11 +6,6 @@ from django.core.cache import cache
 from utils.celery_task import generate_static_index_html
 
 
-
-
-
-
-
 class BaseOwnerAdmin(admin.ModelAdmin):
     # exclude = ('user',)
 

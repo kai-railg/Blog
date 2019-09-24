@@ -1,0 +1,13 @@
+Jenkinsfile (Declarative Pipeline)
+pipeline {
+    agent any
+
+    stages {
+        stage('Deploy') {
+            steps {
+                sh 'workon djaong'
+                sh 'python manage.py runserver 8000'
+            }
+        }
+    }
+}

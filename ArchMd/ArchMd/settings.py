@@ -21,7 +21,6 @@ INSTALLED_APPS = [
     'ckeditor', 'ckeditor_uploader',
     'debug_toolbar', 'pympler',
     'silk',
-
 ]
 
 
@@ -37,6 +36,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'silk.middleware.SilkyMiddleware'
 ]
+
 INTERNAL_IPS = ['127.0.0.1']
 
 ROOT_URLCONF = 'ArchMd.urls'
@@ -74,9 +74,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blog',
-        'HOST': '',
-        'USER': '',
-        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'USER': 'railg',
+        'PASSWORD': '134680',
         'PORT': 3306,
         'CONN_MAX_AGE': 300,
     }
@@ -85,7 +85,7 @@ DATABASES = {
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://ip:6379/0',
+        'LOCATION': 'redis://127.0.0.1:6379/0',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
@@ -135,7 +135,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'collect_static')
 # 全文检索配置
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        # 'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
         'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
 }
