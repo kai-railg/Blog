@@ -40,7 +40,7 @@ fabric==2.4.0
 fdfs-client-py==1.2.6
 future==0.17.1
 gprof2dot==2016.10.13
-httplib2==0.9.2
+httplib2==0.18.0
 idna==2.8
 invoke==1.2.0
 ipython==7.4.0
