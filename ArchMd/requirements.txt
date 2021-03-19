@@ -32,7 +32,7 @@ django-reversion==3.0.3
 django-silk==3.0.1
 django-simple-captcha==0.5.5
 django-tinymce==2.8.0
-djangorestframework==3.9.2
+djangorestframework==3.11.2
 djangorestframework-stubs==0.4.2
 djdt-flamegraph==0.2.12
 et-xmlfile==1.0.1
